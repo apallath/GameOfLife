@@ -14,8 +14,8 @@ gol::Driver::Driver(std::string cfgfile){
         ("random_init", po::value<bool>()->default_value(true))
         ("init_file", po::value<std::string>()->default_value(""))
         ("log_every", po::value<int>()->default_value(1))
-        ("log_stdout", po::value<bool>()->default_value(false))
-        ("log_to", po::value<std::string>()->default_value(""))
+        ("log_to_file", po::value<bool>()->default_value(false))
+        ("log_file", po::value<std::string>()->default_value(""))
         ("run", po::value<int>(&cfg_run));
     
     //Read file
@@ -32,7 +32,7 @@ gol::Driver::Driver(std::string cfgfile){
         game->read_state(vm["init_file"].as<std::string>());
     }
 
-    game->setup(vm["log_every"].as<int>(), vm["log_stdout"].as<bool>(), vm["log_to"].as<std::string>());
+    game->setup(vm["log_every"].as<int>(), vm["log_to_file"].as<bool>(), vm["log_file"].as<std::string>());
 
     //Set run
     cfg_run = vm["run"].as<int>();

@@ -6,6 +6,9 @@
 
 #include <iostream>
 #include <string>
+#include <vector>
+#include <stdlib.h>
+#include <time.h>
 
 namespace GameOfLife{
 
@@ -30,20 +33,24 @@ class Game{
 
         /**
          * Read initial state from file.
+         * @param tstep Current timestep.
          * @param outfile Filename to append state data to.
          */
-        void write_state(std::string outfile);
+        void write_state(int tstep, std::string outfile);
 
-        /*! Print state to stdout. */
-        void print_state();
+        /** 
+         * Print state to stdout. 
+         * @param tstep Current timestep.
+        */
+        void print_state(int tstep);
 
         /**
          * Setup game.
          * @param logevery Interval to log simulation state.
-         * @param logstdout Log simulation state to stdout (default=false).
+         * @param logtofile Log simulation state to file (default=false).
          * @param logfile Filename to log state to.
          */
-        void setup(int logevery, bool logstdout=true, std::string logfile="");
+        void setup(int logevery, bool logtofile=false, std::string logfile="");
 
         /**
          * Run game.
@@ -53,6 +60,19 @@ class Game{
 
         /*! Destructor */
         ~Game();
+    
+    private:
+        // Member variables_
+        std::pair<int,int> grid_dim_; // grid dimensions
+        std::vector<std::vector<int>> grid_; //grid at current timestep
+        std::vector<std::vector<int>> next_grid_; //grid at next timestep
+
+        int logevery_;
+        bool logtofile_;
+        std::string logfile_;
+
+        // Member functions
+        int count_live_neighbors(int x, int y); // Counts live neighbors of cell (x, y)
 };
 
 }
