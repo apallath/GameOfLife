@@ -22,7 +22,7 @@ Generate makefiles and build using CMake by running the build bash script:
 To run a simulation:
 
 ```sh
-./GameOfLife path/to/config/file
+/path/to/GameOfLife config_file.conf
 ```
 
 # Examples:
