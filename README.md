@@ -28,9 +28,11 @@ To run a simulation:
 # Examples:
 
 ![](acorn.gif)
+
 (Acorn)
 
 ![](pulsar.gif)
+
 (Pulsar)
 
 Configuration files for both these examples are in the `examples/` directory.
