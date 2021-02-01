@@ -24,7 +24,7 @@ jobs:
       
       # install dependencies
     - name: Install Boost
-      run: sudo apt-get update && sudo apt-get install -yq libboost1.65-dev
+      run: sudo apt-get update && sudo apt-get install -yq libboost-all-dev
 
     - name: Configure CMake
       # Use a bash shell so we can use the same syntax for environment variable
