@@ -3,6 +3,7 @@
 C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization (TODO).
 
 Examples:
+
 ![](acorn.gif)
 ![](pulsar.gif)
 
