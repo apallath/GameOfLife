@@ -25,4 +25,4 @@ target_link_libraries(GameOfLife ${Boost_LIBRARIES})
 
 enable_testing()
 
-add_test(NAME random_run COMMAND GameOfLife ../tests/random.cfg)
+add_subdirectory(tests)

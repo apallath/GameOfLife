@@ -9,8 +9,8 @@ gol::Driver::Driver(std::string cfgfile){
 
     //Available options
     config.add_options()
-        ("n_x", po::value<int>())
-        ("n_y", po::value<int>())
+        ("n_rows", po::value<int>())
+        ("n_cols", po::value<int>())
         ("random_init", po::value<bool>()->default_value(true))
         ("init_file", po::value<std::string>()->default_value(""))
         ("log_every", po::value<int>()->default_value(1))
@@ -21,21 +21,27 @@ gol::Driver::Driver(std::string cfgfile){
     
     //Read file
     std::ifstream cfgstream(cfgfile, std::ios::in);
-    po::store(po::parse_config_file(cfgstream, config, true), vm);
+    if(cfgstream.is_open()){
+        po::store(po::parse_config_file(cfgstream, config, true), vm);
 
-    //Create and setup game
-    game = new Game(vm["n_x"].as<int>(), vm["n_y"].as<int>());
+        //Create and setup game
+        game = new Game(vm["n_rows"].as<int>(), vm["n_cols"].as<int>());
 
-    if(vm["random_init"].as<bool>()){
-        game->init_random_state();
+        game->setup(vm["log_every"].as<int>(), vm["log_sleep"].as<int>(), vm["log_to_file"].as<bool>(), vm["log_file"].as<std::string>());
+
+        if(vm["random_init"].as<bool>()){
+            game->init_random_state();
+        }
+        else{
+            game->read_state(vm["init_file"].as<std::string>());
+        }
+
+        //Set run
+        cfg_run = vm["run"].as<int>();
     }
     else{
-        game->read_state(vm["init_file"].as<std::string>());
+        std::cerr << "File " << cfgfile << " could not be opened. No such file or directory.";
+        abort();
     }
-
-    game->setup(vm["log_every"].as<int>(), vm["log_sleep"].as<int>(), vm["log_to_file"].as<bool>(), vm["log_file"].as<std::string>());
-
-    //Set run
-    cfg_run = vm["run"].as<int>();
 }
 

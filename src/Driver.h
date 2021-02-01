@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <boost/program_options.hpp>
+#include <stdlib.h>
 #include "Game.h"
 
 namespace GameOfLife{

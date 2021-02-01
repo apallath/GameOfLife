@@ -4,6 +4,7 @@
 #ifndef GAMEOFLIFE_GAME_H_
 #define GAMEOFLIFE_GAME_H_
 
+#include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
@@ -16,15 +17,15 @@
 
 namespace GameOfLife{
 
-/*! Game on grid of size n_x * n_y. */
+/*! Game on grid of size n_rows * n_cols. */
 class Game{
     public:
         /**
          * Constructor.
-         * @param n_x Grid size along x-direction.
-         * @param n_y Grid size along y-direction.
+         * @param n_rows Number of rows in grid.
+         * @param n_cols Number of columns in grid.
          */
-        Game(int n_x, int n_y); 
+        Game(int n_rows, int n_cols); 
 
         /**
          * Read initial state from file.

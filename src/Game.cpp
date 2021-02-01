@@ -6,18 +6,41 @@
 
 namespace gol = GameOfLife;
 
-gol::Game::Game(int n_x, int n_y){
-    std::cout << "Creating simulation on grid of size (" << n_x << ", " << n_y << ")\n";
+gol::Game::Game(int n_rows, int n_cols){
+    std::cout << "Creating simulation on grid of size (" << n_rows << ", " << n_cols << ")\n";
+
+    grid_dim_ = std::pair<int,int>(n_rows, n_cols); 
 
     //Initialize grids with zeros
-    grid_dim_ = std::pair<int,int>(n_x, n_y); 
-    grid_.assign(n_x, std::vector<int>(n_y, 0));
-    next_grid_.assign(n_x, std::vector<int>(n_y, 0));
+    grid_.assign(n_rows, std::vector<int>(n_cols, 0));
+    next_grid_.assign(n_rows, std::vector<int>(n_cols, 0));
 }
 
 void gol::Game::read_state(std::string infile){
     std::cout << "Reading state from " << infile << "\n";
-    //TODO
+    
+    //Read from file and fill vector
+    std::ifstream infstr(infile);
+
+    if(infstr.is_open()) {
+        for(int x = 0; x < grid_dim_.first; x++){
+            for(int y = 0; y < grid_dim_.second; y++){
+                infstr >> grid_[x][y];
+            }
+        }
+
+        //Log initial state
+        if(logtofile_){
+            write_state(0, logfile_);
+        }
+        else{
+            print_state(0);
+        }
+    }
+    else{
+        std::cerr << "File " << infile << " could not be opened. No such file or directory.";
+        abort();
+    }
 }
 
 void gol::Game::init_random_state(){
@@ -42,19 +65,40 @@ void gol::Game::init_random_state(){
 
 void gol::Game::write_state(int tstep, std::string outfile){
     std::cout << "Writing state at " << tstep << " to " << outfile << "\n";
-    //TODO
+
+    std::ofstream outstr;
+    if(tstep == 0){
+        outstr.open(outfile, std::ofstream::trunc);
+    }
+    else{
+        outstr.open(outfile, std::ofstream::app);
+    }
+    
+    if(outstr.is_open()) {
+        outstr << tstep << "\n";
+        for(int x = 0; x < grid_dim_.first; x++){
+            for(int y = 0; y < grid_dim_.second; y++){
+                outstr << grid_[x][y];
+            }
+            outstr << "\n";
+        }
+        outstr << "\n";
+    }
+    else{
+        std::cerr << "File " << outfile << " could not be opened.";
+        abort();
+    }
 }
 
 void gol::Game::print_state(int tstep) {
-    //Print state to stdout
-    if(tstep > 0){
-        printf("\033[2J\033[1;1H");
-    }
+    //Clear terminal output
+    printf("\033[2J\033[1;1H");
+
     std::cout << tstep << "\n";
     for(int x = 0; x < grid_dim_.first; x++){
         for(int y = 0; y < grid_dim_.second; y++){
             if(grid_[x][y] == 1){
-                std::cout << "*";
+                std::cout << "\u2588";
             }
             else{
                 std::cout << ".";
@@ -84,8 +128,6 @@ void gol::Game::setup(int logevery, int logsleep, bool logtofile, std::string lo
  */
 
 void gol::Game::run(int nsteps){
-    std::cout << "Running for " << nsteps << "\n";
-    //Begin code here
     int tstep = 0;
 
     while(tstep < nsteps){

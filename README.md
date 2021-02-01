@@ -1,8 +1,10 @@
 # Game of Life
 
-C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization.
+C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization (TODO).
 
-![](example.gif)
+Examples:
+![](acorn.gif)
+![](pulsar.gif)
 
 ## Status
 
@@ -27,15 +29,17 @@ To run a simulation:
 ./GameOfLife path/to/config/file
 ```
 
-The program requires a configuration file to define options. For examples of configuration files, see the `.cfg` files in the
-`tests/` directory.
+The program requires a configuration file to define options. For examples of configuration files, see the files in the
+`examples/` directory.
 
 ## Testing
-Integration tests are in the directory `tests/`. To run all tests at once, navigate to the directory `tests/` and run
+To run integration tests run
 
 ```sh
 ctest
 ```
+
+in the build directory.
 
 To view test output, run ctest in verbose mode:
 
