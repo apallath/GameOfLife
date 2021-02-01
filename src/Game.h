@@ -7,7 +7,7 @@
 #include <iostream>
 #include <string>
 
-namespace gol{
+namespace GameOfLife{
 
 /*! Game on grid of size n_x * n_y. */
 class Game{
@@ -38,13 +38,18 @@ class Game{
         void print_state();
 
         /**
-         * Run game.
-         * @param nsteps Number of steps to run game for.
+         * Setup game.
          * @param logevery Interval to log simulation state.
          * @param logstdout Log simulation state to stdout (default=false).
          * @param logfile Filename to log state to.
          */
-        void run(int nsteps, int logevery, bool logstdout=true, std::string logfile="");
+        void setup(int logevery, bool logstdout=true, std::string logfile="");
+
+        /**
+         * Run game.
+         * @param nsteps Number of steps to run game for.
+         */
+        void run(int nsteps);
 
         /*! Destructor */
         ~Game();
