@@ -2,11 +2,6 @@
 
 C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization (TODO).
 
-Examples:
-
-![](acorn.gif)
-![](pulsar.gif)
-
 ## Status
 
 [![Actions Status](https://img.shields.io/github/workflow/status/apallath/GameOfLife/CMake)](https://github.com/apallath/GameOfLife/actions)
@@ -30,8 +25,15 @@ To run a simulation:
 ./GameOfLife path/to/config/file
 ```
 
-The program requires a configuration file to define options. For examples of configuration files, see the files in the
-`examples/` directory.
+# Examples:
+
+![](acorn.gif)
+(Acorn)
+
+![](pulsar.gif)
+(Pulsar)
+
+Configuration files for both these examples are in the `examples/` directory.
 
 ## Testing
 To run integration tests run
