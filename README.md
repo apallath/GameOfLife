@@ -2,6 +2,8 @@
 
 C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization.
 
+![](example.gif)
+
 ## Status
 
 [![Actions Status](https://img.shields.io/github/workflow/status/apallath/GameOfLife/CMake)](https://github.com/apallath/GameOfLife/actions)

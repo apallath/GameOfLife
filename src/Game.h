@@ -7,6 +7,10 @@
 #include <iostream>
 #include <string>
 #include <vector>
+#include <chrono>
+#include <thread>
+
+#include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
 
@@ -47,10 +51,11 @@ class Game{
         /**
          * Setup game.
          * @param logevery Interval to log simulation state.
+         * @param logsleep Time interval (in ms) to sleep after logging.
          * @param logtofile Log simulation state to file (default=false).
          * @param logfile Filename to log state to.
          */
-        void setup(int logevery, bool logtofile=false, std::string logfile="");
+        void setup(int logevery, int logsleep, bool logtofile=false, std::string logfile="");
 
         /**
          * Run game.
@@ -68,6 +73,7 @@ class Game{
         std::vector<std::vector<int>> next_grid_; //grid at next timestep
 
         int logevery_;
+        int logsleep_;
         bool logtofile_;
         std::string logfile_;
 

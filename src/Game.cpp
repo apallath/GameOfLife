@@ -47,6 +47,9 @@ void gol::Game::write_state(int tstep, std::string outfile){
 
 void gol::Game::print_state(int tstep) {
     //Print state to stdout
+    if(tstep > 0){
+        printf("\033[2J\033[1;1H");
+    }
     std::cout << tstep << "\n";
     for(int x = 0; x < grid_dim_.first; x++){
         for(int y = 0; y < grid_dim_.second; y++){
@@ -54,16 +57,18 @@ void gol::Game::print_state(int tstep) {
                 std::cout << "*";
             }
             else{
-                std::cout << "-";
+                std::cout << ".";
             }
         }
         std::cout << "\n";
     }
     std::cout << "\n";
+    std::this_thread::sleep_for(std::chrono::milliseconds(logsleep_));
 }
 
-void gol::Game::setup(int logevery, bool logtofile, std::string logfile){
+void gol::Game::setup(int logevery, int logsleep, bool logtofile, std::string logfile){
     logevery_ = logevery;
+    logsleep_ = logsleep;
     logtofile_ = logtofile;
     logfile_ = logfile;
 }
