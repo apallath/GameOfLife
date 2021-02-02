@@ -46,7 +46,7 @@ ctest
 
 in the build directory.
 
-To view test output, run ctest in verbose mode:
+To view test output, run ctest in extra verbose mode:
 
 ```sh
 ctest -VV

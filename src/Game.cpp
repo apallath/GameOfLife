@@ -1,7 +1,3 @@
-/*
- * TODO: File I/O
- * TODO: stdout -> OpenGL
- */
 #include "Game.h"
 
 namespace gol = GameOfLife;
@@ -107,7 +103,13 @@ void gol::Game::print_state(int tstep) {
         std::cout << "\n";
     }
     std::cout << "\n";
-    std::this_thread::sleep_for(std::chrono::milliseconds(logsleep_));
+
+    if(tstep == 0){
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+    else{
+        std::this_thread::sleep_for(std::chrono::milliseconds(logsleep_));
+    }
 }
 
 void gol::Game::setup(int logevery, int logsleep, bool logtofile, std::string logfile){
