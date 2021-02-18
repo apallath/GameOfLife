@@ -1,4 +1,7 @@
 build
 build/*
 build/*.*
+bench_out
+bench_out/*
+bench_out/*.*
 .vscode/

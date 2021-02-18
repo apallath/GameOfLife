@@ -133,22 +133,36 @@ void gol::Game::run(int nsteps){
     int tstep = 0;
 
     while(tstep < nsteps){
-        //Update grid
-        for(int x = 0; x < grid_dim_.first; x++){
-            for(int y = 0; y < grid_dim_.second; y++){
-                int neigh_ct = count_live_neighbors(x, y);
-                if(grid_[x][y] == 1 and (neigh_ct == 2 or neigh_ct == 3)){
-                    next_grid_[x][y] = 1; //cell lives
+        
+        #pragma omp parallel
+        {
+            //Update next_grid
+            #pragma omp for
+            for(int x = 0; x < grid_dim_.first; x++){
+                for(int y = 0; y < grid_dim_.second; y++){
+                    int neigh_ct = count_live_neighbors(x, y);
+                    if(grid_[x][y] == 1 and (neigh_ct == 2 or neigh_ct == 3)){
+                        next_grid_[x][y] = 1; //cell lives
+                    }
+                    else if(grid_[x][y] == 0 and neigh_ct == 3){
+                        next_grid_[x][y] = 1; //cell lives
+                    }
+                    else{
+                        next_grid_[x][y] = 0; //cell dies
+                    }
                 }
-                else if(grid_[x][y] == 0 and neigh_ct == 3){
-                    next_grid_[x][y] = 1; //cell lives
-                }
-                else{
-                    next_grid_[x][y] = 0; //cell dies
+            }
+
+            #pragma omp barrier
+
+            //Copy grid
+            #pragma omp for
+            for(int x = 0; x < grid_dim_.first; x++){
+                for(int y = 0; y < grid_dim_.second; y++){
+                    grid_[x][y] = next_grid_[x][y];
                 }
             }
         }
-        grid_ = next_grid_;
 
         //Update timestep
         tstep++;

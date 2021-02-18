@@ -6,6 +6,9 @@ project(GameOfLife)
 set(CMAKE_CXX_STANDARD 14)
 set(CMAKE_CXX_STANDARD_REQUIRED True)
 
+# Find OpenMP
+find_package(OpenMP REQUIRED)
+
 # All .cpp files from src/
 file(GLOB SOURCES "src/*.cpp")
 
@@ -17,7 +20,7 @@ message("boost lib: ${Boost_LIBRARIES}, inc:${Boost_INCLUDE_DIR}")
 add_executable(GameOfLife ${SOURCES})
 
 # Link
-target_link_libraries(GameOfLife ${Boost_LIBRARIES})
+target_link_libraries(GameOfLife ${Boost_LIBRARIES} OpenMP::OpenMP_CXX)
 
 #####################
 # Testing           #

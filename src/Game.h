@@ -15,6 +15,8 @@
 #include <stdlib.h>
 #include <time.h>
 
+#include <omp.h>
+
 namespace GameOfLife{
 
 /*! Game on grid of size n_rows * n_cols. */

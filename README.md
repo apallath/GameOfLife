@@ -1,6 +1,6 @@
 # Game of Life
 
-C++ implementation of Conway's Game of Life, with OpenMP and MPI parallelization (TODO).
+C++ implementation of Conway's Game of Life with OpenMP parallelization.
 
 ## Status
 
@@ -51,3 +51,12 @@ To view test output, run ctest in extra verbose mode:
 ```sh
 ctest -VV
 ```
+
+## OpenMP scaling benchmarks
+Run
+
+```sh
+benchmark.sh
+```
+
+in the folder `benchmarks/`
