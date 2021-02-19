@@ -9,6 +9,7 @@ fi
 mkdir bench_out
 cd bench_out
 cp ../spaceship.input .
+cp ../plot_scaling.py .
 
 #Strong scaling
 for th in ${threadcts[@]}
@@ -22,3 +23,6 @@ done
 
 # Show times
 grep 'real' time_*.txt | sed 's/.txt.*real//g' | awk -F '_' '{print $2}'
+
+# Scaling analysis script
+python plot_scaling.py

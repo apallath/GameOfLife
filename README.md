@@ -60,3 +60,7 @@ benchmark.sh
 ```
 
 in the folder `benchmarks/`
+
+Sample strong scaling benchmark:
+
+![](benchmarks/strong_scaling_example.png)
